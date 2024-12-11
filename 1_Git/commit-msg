@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+
+// Получаем путь к файлу сообщения коммита
+const msgFilePath = process.argv[2];
+
+// Читаем содержимое файла сообщения
+fs.readFile(msgFilePath, 'utf8', (err, data) => {
+    if (err) {
+        console.error('Ошибка чтения файла:', err);
+        process.exit(1);
+    }
+
+    // Регулярное выражение для проверки формата сообщения
+    const pattern = /^ASTONJS-\d+ \[(feat|fix|chore)\]: .+/;
+
+    // Проверяем сообщение коммита на соответствие паттерну
+    if (!pattern.test(data)) {
+        console.error('Ошибка: сообщение коммита должно соответствовать формату "ASTONJS-<номер урока> [feat/fix/chore]: <сообщение на английском языке>".');
+        process.exit(1);
+    }
+
+    // Если все в порядке, выходим с кодом 0
+    process.exit(0);
+});
