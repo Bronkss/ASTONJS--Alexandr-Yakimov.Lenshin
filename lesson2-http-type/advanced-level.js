@@ -1,3 +1,37 @@
+// Продвинутый:
+// Дан объект Node со структурой ’Tree’
+
+// Node:
+//   value: <number>,
+//   left: <Node> | undefined,
+//   right: <Node> | undefined
+
+// Структура объекта может быть очень большой (условно содержать миллион Node).
+
+// Напишите функцию compare, принимающую на вход два объекта Node, и возвращающую true, если они имеют одинаковую структуру и значения и false в ином случае.
+
+// Пример:
+
+//  1             1
+//  |  \           |  \
+// 2   3        2    3
+
+// => true
+
+//  1            1
+//  |  \          |  \
+// 3   3       2   3
+
+// => false (значения не одинаковые 2 != 3)
+
+//  1            1
+//  |  \          |
+// 2   3        2
+//                |
+//                3
+
+// => false (разная структура)
+
 class Node {
   constructor(data, left = null, right = null) {
     this.data = data;
@@ -11,32 +45,31 @@ class Tree {
     this.root = null;
   }
 
-  addNode(data) {
+  searchInTree(node) {
+    if (node === 0) return null;
+
+    if (data < node.data) {
+      const newNode =
+        node.left === null ? new Node(data) : searchInTree(node.left);
+
+      return newNode;
+    } else {
+      const newNode =
+        node.right === null ? new Node(data) : searchInTree(node.right);
+
+      return newNode;
+    }
+  }
+
+  addNode(data, direction) {
     const node = this.root;
+
     if (node === null) {
       this.root = new Node(data);
+
       return;
     } else {
-      const searchTree = function (node) {
-        if (data < node.data) {
-          if (node.left === null) {
-            node.left = new Node(data);
-            return;
-          } else if (node.left !== null) {
-            return searchTree(node.left);
-          }
-        } else if (data > node.data) {
-          if (node.right === null) {
-            node.right = new Node(data);
-            return;
-          } else if (node.right !== null) {
-            return searchTree(node.right);
-          }
-        } else {
-          return null;
-        }
-      };
-      return searchTree(node);
+      return searchInTree(node);
     }
   }
 }
@@ -44,20 +77,7 @@ class Tree {
 const treeFirst = new Tree();
 const treeSecond = new Tree();
 
-treeFirst.addNode(10);
-treeFirst.addNode(9);
-treeFirst.addNode(8);
-treeFirst.addNode(11);
-treeFirst.addNode(12);
-
-treeSecond.addNode(10);
-treeSecond.addNode(9);
-treeSecond.addNode(8);
-treeSecond.addNode(11);
-treeSecond.addNode(12);
-
-function compareNodes(objFirst, objSecond) {
-  return JSON.stringify(objFirst) === JSON.stringify(objSecond);
+function compareThrees(first, second) {
+  return JSON.stringify(first) === JSON.stringify(second);
 }
-
-console.log(compareNodes(treeFirst, treeSecond));
+console.log(compareThrees(treeFirst, treeSecond));
