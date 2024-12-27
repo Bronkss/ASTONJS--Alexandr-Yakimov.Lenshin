@@ -4,15 +4,15 @@
 // return …
 // }
 
-// function reverseStr(str) {
-//   return str.split("").reverse().join("");
-// }
+function reverseStr(str) {
+  return str.split("").reverse().join("");
+}
 
-// console.log(reverseStr("Hello world"));
+console.log(reverseStr("Hello world"));
 
-// const reverseStrShort = (str) => str.split("").reverse().join("");
+const reverseStrShort = (str) => str.split("").reverse().join("");
 
-// console.log(reverseStrShort("Hello world"));
+console.log(reverseStrShort("Hello world"));
 
 // Задание 2– Написать функцию глубокого сравнения двух объектов:
 // const obj1 = { here: { is: "on", other: "3" }, object: Z };
