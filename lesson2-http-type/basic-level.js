@@ -2,7 +2,7 @@
 // Функция должна вывести в консоль длину (length) этого значения, если это возможно, иначе вывести в консоль 0.
 
 function getLength(value) {
-  const valueType = typeof userValue;
+  const valueType = typeof value;
 
   switch (valueType) {
     case "bigint":
@@ -12,6 +12,7 @@ function getLength(value) {
       break;
     case "boolean":
       console.log(`0`);
+      break;
     case "function":
       console.log(value.length);
 
@@ -21,15 +22,10 @@ function getLength(value) {
       console.log(numberCompatibleValue.length);
 
       break;
-    case "object": {
-      if (Array.isArray(value)) {
-        console.log(value.length);
-      } else {
-        console.log(`0`);
-      }
-
+    case "object":
+      console.log(Object.keys(value).length);
       break;
-    }
+
     case "string":
       console.log(value.length);
 
